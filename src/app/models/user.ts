@@ -15,6 +15,5 @@ export class User {
         this.email = '';
         this.newPassword = '';
         this.hashPassword = '';
-        
     }
 }

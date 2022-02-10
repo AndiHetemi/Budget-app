@@ -44,7 +44,7 @@ export class UserService implements IUserAPIService {
                 response.push(userArray[i]);
             }
         }
-             return response;
+        return response;
     }
 
     findbyId(reqId: number): User {
@@ -57,8 +57,7 @@ export class UserService implements IUserAPIService {
                 }
             } 
         }
-        return new User();      
-       
+        return new User();
     }
 
     update(req: User): number {  
@@ -75,6 +74,7 @@ export class UserService implements IUserAPIService {
         }
         return 0;
     }
+
     remove(reqId: number): number {        
         const us = this.localStorage.getItem(this.userKey);
         let userArray: User[] = JSON.parse(us);

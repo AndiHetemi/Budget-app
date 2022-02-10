@@ -4,5 +4,4 @@ export interface IBudgetAPIService {
     add(req: Budget): void;
     find(): Budget;
     update(req: Budget): void; 
-
 }
