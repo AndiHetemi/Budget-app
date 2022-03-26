@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { hashString } from "../helpers/hash";
 import { Find } from "../models/find";
 import { User } from "../models/user";
 import { IUserAPIService } from "./user.api";
@@ -25,6 +26,8 @@ export class UserService implements IUserAPIService {
         } else {
             req.id = 1;
         }
+        // hash newPassword then save it
+        req.hashPassword = hashString(req.newPassword);
         users.push(req);
         this.localStorage.setItem(this.userKey, JSON.stringify(users));
         return req.id;

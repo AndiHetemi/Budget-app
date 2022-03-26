@@ -1,0 +1,30 @@
+<main class="form-signin ">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+    <div class="form-floating">
+      <input formControlName="username" type="text" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" class="form-control is-invalid" placeholder="username">
+      <label>Username</label>
+      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+        <div *ngIf="f.username.errors.required">Username is required</div>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="form-floating">
+      <input formControlName="password" type="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" class="form-control" placeholder="Password">
+      <label>Password</label>
+      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <div *ngIf="f.password.errors.required">Password is required</div>
+      </div>
+    </div>
+
+    <br />
+    <div *ngIf="submitted && loginError" class="alert alert-danger" role="alert">
+      Username or Password is wrong!
+    </div>
+    
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+  </form>
+</main>
