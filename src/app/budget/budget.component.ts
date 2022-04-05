@@ -12,8 +12,8 @@ import { BudgetService } from '../services/budget.service';
 export class BudgetComponent implements OnInit {
   public budgetForm: FormGroup;
   public totalBudget: FormControl;
-  submitted: boolean;
-  previousTotal: number;
+  public submitted: boolean;
+  public previousTotal: number;
   
   constructor(private _router: Router, private _budgetSvc: BudgetService) {
     this.totalBudget = new FormControl(0, Validators.required);
@@ -27,7 +27,6 @@ export class BudgetComponent implements OnInit {
   get f(): any { return this.budgetForm.controls; }
 
   ngOnInit(): void {
-    // call find func from budget svc and set it on totalBudget value
     let currentBudget = this._budgetSvc.find();
     if (currentBudget) {
       this.budgetForm.get('totalBudget')?.setValue(currentBudget.total);
@@ -39,7 +38,6 @@ export class BudgetComponent implements OnInit {
     this.submitted = true;
     let budgetReq = new Budget();
     budgetReq.total = parseInt(this.totalBudget.value);
-    // call add function
     this._budgetSvc.add(budgetReq);
   }
 }

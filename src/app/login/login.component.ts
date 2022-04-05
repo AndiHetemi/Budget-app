@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this._authSvc.loggedIn()) {
-      this._router.navigate(['/budget']);
+      this._router.navigate(['/home']);
     }
   }
 
@@ -47,6 +47,6 @@ export class LoginComponent implements OnInit {
       return;
     }
     // logged in successful
-    this._router.navigate(['/budget']);
+    this._router.navigate(['/home']);
   }
 }

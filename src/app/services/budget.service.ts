@@ -18,8 +18,7 @@ export class BudgetService implements IBudgetAPIService {
     
     add(req: Budget): void {
         this.localStorage.setItem(this.budgetKey, JSON.stringify(req));
-    
-    } 
+    }
 
     find(): Budget {
         let budgetStr: string = this.localStorage.getItem(this.budgetKey);
@@ -30,5 +29,4 @@ export class BudgetService implements IBudgetAPIService {
     update(req: Budget): void {
         this.localStorage.setItem(this.budgetKey, JSON.stringify(req));
     }
-    
 }

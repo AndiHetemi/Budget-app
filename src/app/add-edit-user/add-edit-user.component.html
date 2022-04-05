@@ -1,1 +1,63 @@
-<p>add-edit-user works!</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="py-3 text-center">
+            <h2 *ngIf="!isEditMode">Add New User</h2>
+            <h2 *ngIf="isEditMode">Edit User</h2>
+        </div>
+        <div class="col-4">
+          <form [formGroup]="addEditForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input formControlName="firstName" type="text" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" class="form-control is-invalid" id="firstName" placeholder="First Name">
+                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                  <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                </div>
+    
+                <br/>
+    
+                <label for="lastName" class="form-label">Last Name</label>
+                <input formControlName="lastName" type="text" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" class="form-control is-invalid" id="lastName" placeholder="Last Name">
+                <div *ngIf="submitted && f.lastNameerrors" class="invalid-feedback">
+                  <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                </div>
+    
+                <br/>
+    
+                <label for="username" class="form-label">Username</label>
+                <input formControlName="username" type= "text" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" class="form-control is-invalid" id="username" placeholder="Username">
+                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                  <div *ngIf="f.username.errors.required">Username is required </div>
+                </div>
+    
+                <br/>
+    
+                <label for="email" class="form-label">Email</label>
+                <input formControlName="email" type="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="form-control is-invalid" id="email" placeholder="Email">
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email is required</div>
+                </div>
+    
+                <br/>
+    
+                <label for="password" class="form-label">Password</label>
+                <input formControlName="password" type="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" class="form-control is-invalid" id="password" placeholder="Password">
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">Password is required</div>
+                </div>
+    
+                <br/>
+    
+                <div *ngIf="submitted && sameUsernameError" class="alert alert-danger" role="alert">
+                    Username is already used!
+                </div>
+    
+                <div *ngIf="submitted && saveSuccess" class="alert alert-success" role="alert">
+                    User has been successfully {{ isEditMode ? 'updated' : 'saved' }}!
+                </div>
+    
+                <button class="w-100 btn btn-lg btn-primary" type="submit">{{ isEditMode ? 'Update' : 'Save' }}</button>
+              </div>
+          </form>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,7 @@ export class User {
     lastName: string;
     username: string;
     email: string;
-    newPassword: string;
+    password: string;
     hashPassword: string;
 
     constructor() {
@@ -13,7 +13,7 @@ export class User {
         this.lastName = '';
         this.username = '';
         this.email = '';
-        this.newPassword = '';
+        this.password = '';
         this.hashPassword = '';
     }
 }

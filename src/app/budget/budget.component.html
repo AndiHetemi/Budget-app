@@ -1,22 +1,26 @@
 <div class="container">
-    <div class="py-5 text-center">
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <div class="py-5 text-center">
         <h2>Budget</h2>
         <p class="lead"></p>
       </div>
-  <form [formGroup]="budgetForm" (ngSubmit)="onSubmit()">
-    <div class="mb-3">
-        <label for="totalbudget" class="form-label">Total Budget</label>
-        <input formControlName="totalBudget" type="number" [ngClass]="{ 'is-invalid': submitted && f.totalBudget.errors }" class="form-control is-invalid" id="totalbudget" placeholder="Total Budget">
-        <div *ngIf="submitted && f.totalBudget.errors" class="invalid-feedback">
-          <div *ngIf="f.totalBudget.errors.required">Total Budget is required</div>
-        </div>
-        <br/>
-        <label class="form-label">Previous Budget</label>
-        <input value="{{previousTotal}}" class="form-control" type="number" placeholder="Previous Budget" disabled>
+      <form [formGroup]="budgetForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="totalbudget" class="form-label">Total Remaining Budget</label>
+            <input formControlName="totalBudget" type="number" [ngClass]="{ 'is-invalid': submitted && f.totalBudget.errors }" class="form-control is-invalid" id="totalbudget" placeholder="Total Budget">
+            <div *ngIf="submitted && f.totalBudget.errors" class="invalid-feedback">
+              <div *ngIf="f.totalBudget.errors.required">Total Budget is required</div>
+            </div>
+            <br/>
+            <label class="form-label">Previous Budget</label>
+            <input value="{{previousTotal}}" class="form-control" type="number" placeholder="Previous Budget" disabled>
 
-        <br/>
+            <br/>
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Save</button>
-      </div>
-  </form>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Save</button>
+          </div>
+      </form>
+    </div>
+  </div>
 </div>

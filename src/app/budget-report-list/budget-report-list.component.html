@@ -1,1 +1,38 @@
-<p>budget-report-list works!</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="py-3 text-center">
+            <h2>Budget Reports</h2>
+        </div>
+        <div class="col-9 mb-5">
+            <div class="row">
+                <div class="col-5 offset-md-8">
+                    <button style="margin-right:5px;" (click)="goToAddIncomePage()" class="btn btn-success">Add New Income</button>
+                    <button (click)="goToAddExpensePage()" class="btn btn-danger">Add New Expense</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-9">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Type</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Category Name</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let incExp of incomesExpenses;">
+                    <td>{{ incExp.type }}</td>
+                    <td>{{ incExp.amount }}</td>
+                    <td>{{ incExp.categoryName }}</td>
+                    <td>{{ incExp.createdAt }}</td>
+                    <td><button style="margin-right: 10px;" (click)="goToEditPage(incExp.id)" class="btn btn-primary">Edit</button>
+                      <button (click)="removeIncExp(incExp.id)" class="btn btn-danger">Remove</button></td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

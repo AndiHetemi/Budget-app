@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { hashString } from "../helpers/hash";
-import { Find } from "../models/find";
+import { FindUser } from "../models/find_user";
 import { User } from "../models/user";
 import { IUserAPIService } from "./user.api";
 
@@ -22,18 +22,23 @@ export class UserService implements IUserAPIService {
         if (usStr && usStr != '') {
             users = JSON.parse(usStr);
             const lastus: User = users[users.length - 1];
-            req.id = lastus.id+1;
+            if (users.length != 0) {
+                req.id = lastus.id+1;
+            } else {
+                req.id = 1;
+            }
         } else {
             req.id = 1;
         }
-        // hash newPassword then save it
-        req.hashPassword = hashString(req.newPassword);
+        // hash password then save it
+        req.hashPassword = hashString(req.password);
+        req.password = '';
         users.push(req);
         this.localStorage.setItem(this.userKey, JSON.stringify(users));
         return req.id;
     }
 
-    find(req: Find): User[] {
+    find(req: FindUser): User[] {
         let response: User[] = [];
         const usStr = this.localStorage.getItem(this.userKey);
         const userArray: User[] = JSON.parse(usStr);
@@ -44,7 +49,13 @@ export class UserService implements IUserAPIService {
         let offset = (req.page -1) * limit;
         for (let i = offset; i < limit+offset; i++) {
             if (userArray.length > i){
-                response.push(userArray[i]);
+                if (req.username != '') {
+                    if (userArray[i].username == req.username) {
+                        response.push(userArray[i]);
+                    }
+                } else {
+                    response.push(userArray[i]);
+                }
             }
         }
         return response;
@@ -63,13 +74,21 @@ export class UserService implements IUserAPIService {
         return new User();
     }
 
-    update(req: User): number {  
+    update(req: User): number {
+        if (req.id == 0) {
+            return 0;
+        }
         const usStr = this.localStorage.getItem(this.userKey);
         const userArray: User [] = JSON.parse(usStr);
         if (userArray) {
-            for (let us of userArray){
+            for (let us of userArray) {
                 if (us.id == req.id) {
-                    us = req;
+                    us.firstName = req.firstName;
+                    us.lastName = req.lastName;
+                    us.email = req.email;
+                    us.username = req.username;
+                    us.hashPassword = hashString(req.password);
+                    us.password = '';
                     this.localStorage.setItem(this.userKey, JSON.stringify(userArray));
                     return req.id;
                 }
@@ -78,14 +97,14 @@ export class UserService implements IUserAPIService {
         return 0;
     }
 
-    remove(reqId: number): number {        
+    remove(reqId: number): number {
         const us = this.localStorage.getItem(this.userKey);
         let userArray: User[] = JSON.parse(us);
         if (userArray) {
             let userIndex = userArray.findIndex(us => us.id === reqId);
             if(userIndex > -1) {
                 userArray.splice(userIndex, 1);
-                this.localStorage.setItem (this.userKey, JSON.stringify(userArray));
+                this.localStorage.setItem(this.userKey, JSON.stringify(userArray));
                 return reqId;
             }
         }

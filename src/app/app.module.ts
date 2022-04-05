@@ -8,8 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { BudgetService } from './services/budget.service';
 import { CategoryService } from './services/category.service';
-import { ExpenseService } from './services/expense.service';
-import { IncomeService } from './services/income.service';
+import { IncomeExpenseService } from './services/income_expense.service';
 import { UserService } from './services/user.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthNGuard } from './guards/authn.guard';
@@ -19,6 +18,7 @@ import { AddEditIncomeComponent } from './add-edit-income/add-edit-income.compon
 import { AddEditExpenseComponent } from './add-edit-expense/add-edit-expense.component';
 import { BudgetReportListComponent } from './budget-report-list/budget-report-list.component';
 import { AddEditCategoryComponent } from './add-edit-category/add-edit-category.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import { AddEditCategoryComponent } from './add-edit-category/add-edit-category.
     AddEditExpenseComponent,
     BudgetReportListComponent,
     AddEditCategoryComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,8 +42,7 @@ import { AddEditCategoryComponent } from './add-edit-category/add-edit-category.
     AuthService,
     BudgetService,
     CategoryService,
-    ExpenseService,
-    IncomeService,
+    IncomeExpenseService,
     UserService,
     AuthNGuard
   ],
