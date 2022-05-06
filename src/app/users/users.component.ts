@@ -41,11 +41,14 @@ export class UsersComponent implements OnInit {
     let resId = this._userSvc.remove(this.selectedDeleteUserId);
     if (resId != 0) {
       this.loadData();
+      let modalDeleteCloseBtn = <HTMLButtonElement>document.getElementById("closeModalButton");
+      if (modalDeleteCloseBtn) {
+        modalDeleteCloseBtn.click();
+      }
     }
   }
 
   setSelectedUserId(userId: number) {
-    console.log('setSelectedUserId', userId);
     this.selectedDeleteUserId = userId;
   }
 }

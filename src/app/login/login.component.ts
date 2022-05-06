@@ -48,5 +48,6 @@ export class LoginComponent implements OnInit {
     }
     // logged in successful
     this._router.navigate(['/home']);
+    window.location.reload();
   }
 }

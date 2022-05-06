@@ -3,12 +3,35 @@
         <div class="py-3 text-center">
             <h2>Budget Reports</h2>
         </div>
-        <div class="col-9 mb-5">
-            <div class="row">
-                <div class="col-5 offset-md-8">
-                    <button style="margin-right:5px;" (click)="goToAddIncomePage()" class="btn btn-success">Add New Income</button>
-                    <button (click)="goToAddExpensePage()" class="btn btn-danger">Add New Expense</button>
+        <div class="row justify-content-between col-9 py-4">
+            <div class="col-6" style="margin-top: 24px; padding-left: 0px; display: inline-flex">
+                <span>Filter:</span>
+                <select style="width: 30%" (change)="onFilterTypeSelect()" class="form-select" [(ngModel)]="filterTypeValue">
+                    <option value="">All</option>
+                    <option value="Income">Income</option>
+                    <option value="Expense">Expense</option>
+                </select>
+
+                <div class="form-group">
+                    <div class="input-group">
+                    <input style="margin-left: 25px; width: 30%;" class="form-control" placeholder="From date"
+                           name="dp" [(ngModel)]="fromDate" ngbDatepicker #df="ngbDatepicker" (click)="df.toggle()">
+                    </div>
                 </div>
+                <div class="form-group">
+                    <div class="input-group">
+                    <input style="margin-left: 25px; width: 30%;" class="form-control" placeholder="To date"
+                    name="dp" [(ngModel)]="toDate" ngbDatepicker #dt="ngbDatepicker" (click)="dt.toggle()">
+                </div>
+            </div>
+            
+                
+             
+            </div>
+            
+            <div class="col-5" style="text-align: right; padding-right: 0px; margin-top: 24px;">
+                <button style="margin-right:5px;" (click)="goToAddIncomePage()" class="btn btn-success">Add New Income</button>
+                <button (click)="goToAddExpensePage()" class="btn btn-danger">Add New Expense</button>
             </div>
         </div>
         <div class="col-9">
@@ -18,6 +41,7 @@
                     <th scope="col">Type</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Category Name</th>
+                    <th scope="col">User Full Name</th>
                     <th scope="col">Created At</th>
                     <th scope="col">Actions</th>
                   </tr>
@@ -27,12 +51,33 @@
                     <td>{{ incExp.type }}</td>
                     <td>{{ incExp.amount }}</td>
                     <td>{{ incExp.categoryName }}</td>
-                    <td>{{ incExp.createdAt }}</td>
-                    <td><button style="margin-right: 10px;" (click)="goToEditPage(incExp.id)" class="btn btn-primary">Edit</button>
-                      <button (click)="removeIncExp(incExp.id)" class="btn btn-danger">Remove</button></td>
+                    <td>{{ incExp.userFullName }}</td>
+                    <td>{{ incExp.createdAt | date: 'short' }}</td>
+                    <td><button style="margin-right: 10px;" (click)="goToEditPage(incExp.id, incExp.type)" class="btn btn-primary">Edit</button>
+                      <button data-bs-toggle="modal" (click)="prepareRemoveIncExp(incExp.id, incExp.type, incExp.amount)" data-bs-target="#dialogToDeleteIncExp" class="btn btn-danger">Remove</button>
+                    </td>
                   </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for dialog to delete income/expense -->
+<div class="modal fade" id="dialogToDeleteIncExp" tabindex="-1" aria-labelledby="dialogToDeleteIncExp" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Delete {{ selectedIncExpTypeToDelete }}</h5>
+            <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to delete this {{ selectedIncExpTypeToDelete }}!?
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="closeModalButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" (click)="removeExpenseIncome()" class="btn btn-danger">Delete</button>
+        </div>
         </div>
     </div>
 </div>

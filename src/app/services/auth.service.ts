@@ -37,6 +37,12 @@ export class AuthService implements IAuthAPIService {
         }
         return 0;
     }
+
+    userData(): User {
+        const userStr = this.localStorage.getItem(this.userDataKey);
+        const user: User = JSON.parse(userStr);
+        return user;
+    }
     
     logout(): void {
         this.localStorage.removeItem(this.userDataKey);

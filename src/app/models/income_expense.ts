@@ -4,7 +4,9 @@ export class IncomeExpense {
     categoryId: number;
     description: string;
     type: string;
+    userId: number;
     createdAt: Date;
+    updatedAt: Date;
 
     constructor() {
         this.id = 0;
@@ -12,7 +14,9 @@ export class IncomeExpense {
         this.categoryId = 0;
         this.description = '';
         this.type = '';
+        this.userId = 0;
         this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
 }

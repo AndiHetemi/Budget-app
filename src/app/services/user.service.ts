@@ -61,12 +61,12 @@ export class UserService implements IUserAPIService {
         return response;
     }
 
-    findbyId(reqId: number): User {
+    findbyId(userId: number): User {
         const usStr =  this.localStorage.getItem(this.userKey);
         const userArray: User[] = JSON.parse(usStr);
         if (userArray){
             for (let us of userArray) {
-                if (us.id == reqId){
+                if (us.id == userId){
                     return us
                 }
             } 
@@ -97,15 +97,15 @@ export class UserService implements IUserAPIService {
         return 0;
     }
 
-    remove(reqId: number): number {
+    remove(userId: number): number {
         const us = this.localStorage.getItem(this.userKey);
         let userArray: User[] = JSON.parse(us);
         if (userArray) {
-            let userIndex = userArray.findIndex(us => us.id === reqId);
+            let userIndex = userArray.findIndex(us => us.id === userId);
             if(userIndex > -1) {
                 userArray.splice(userIndex, 1);
                 this.localStorage.setItem(this.userKey, JSON.stringify(userArray));
-                return reqId;
+                return userId;
             }
         }
         return 0;

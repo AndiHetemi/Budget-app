@@ -20,7 +20,11 @@ export class CategoryService implements ICategoryAPIService {
         if (cts && cts != '') {
             ctsArray = JSON.parse(cts);
             const lastCat: Category = ctsArray[ctsArray.length - 1];
-            req.id = lastCat.id+1;
+            if (ctsArray.length != 0) {
+                req.id = lastCat.id+1;
+            } else {
+                req.id = 1;
+            }
         } else {
             req.id = 1;
         }
@@ -57,7 +61,7 @@ export class CategoryService implements ICategoryAPIService {
                 // if id of category(ct) equals with req id
                 // update cat in array and setitem in localstorage
                 if (ct.id == req.id) {
-                    ct = req;
+                    ct.name = req.name;
                     this.localStorage.setItem(this.catKey, JSON.stringify(ctsArray));
                     return req.id;
                 }

@@ -85,17 +85,21 @@ export class AddEditUserComponent implements OnInit {
     userReq.username = this.username.value;
     userReq.email = this.email.value;
     userReq.password = this.password.value;
+    // if is edit mode update the user
     if (this.isEditMode) {
       userReq.id = parseInt(this.userIdParam);
       let updateResId = this._userSvc.update(userReq);
       if (updateResId != 0) {
         this.saveSuccess = true;
+        this._router.navigate(['/users']);
         return;
       }
     }
+    // if not edit mode then add as new user
     let resId = this._userSvc.add(userReq);
     if (resId != 0) {
       this.saveSuccess = true;
+      this._router.navigate(['/users']);
       return
     }
   }

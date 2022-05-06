@@ -1,0 +1,7 @@
+.main-bg {
+    background: url(../../assets/bg1.jpg) no-repeat bottom left fixed;
+    background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    min-height: 100vh;
+}
