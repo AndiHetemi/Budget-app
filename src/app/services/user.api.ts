@@ -7,4 +7,5 @@ export interface IUserAPIService {
     findbyId(userId: number): User;
     update(req: User): number;
     remove(userId: number): number;
+    count(): number;
 }

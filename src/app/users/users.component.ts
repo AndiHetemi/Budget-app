@@ -12,10 +12,14 @@ import { UserService } from '../services/user.service';
 export class UsersComponent implements OnInit {
   users: User[];
   selectedDeleteUserId: number;
+  findUsers: FindUser;
+  totalLength: number;
 
   constructor(private _router: Router, private _userSvc: UserService) { 
     this.users = [];
     this.selectedDeleteUserId = 0;
+    this.findUsers = new FindUser();
+    this.totalLength = 0;
   }
 
   ngOnInit(): void {
@@ -23,7 +27,17 @@ export class UsersComponent implements OnInit {
   }
 
   loadData() {
-    this.users = this._userSvc.find(new FindUser());
+    this.users = this._userSvc.find(this.findUsers);
+    this.loadDataCount();
+  }
+
+  loadDataCount() {
+    this.totalLength = this._userSvc.count();
+  }
+
+  pageChange(page: number) {
+    this.findUsers.page = page;
+    this.loadData();
   }
 
   goToAddUserPage() {

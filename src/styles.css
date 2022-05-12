@@ -9,7 +9,7 @@
 
 body {
   background-color: hsl(0deg 11% 92% / 30%);
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 
 .cover-container {

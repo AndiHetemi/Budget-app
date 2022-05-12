@@ -5,8 +5,7 @@ export class FindIncomeExpense {
 
     constructor() {
         this.page = 1;
-        this.pageSize = 10;
+        this.pageSize = 5;
         this.type = '';
     }
-
 }

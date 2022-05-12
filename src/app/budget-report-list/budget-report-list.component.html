@@ -47,7 +47,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let incExp of incomesExpenses;">
+                  <tr *ngFor="let incExp of incomesExpenses">
                     <td>{{ incExp.type }}</td>
                     <td>{{ incExp.amount }}</td>
                     <td>{{ incExp.categoryName }}</td>
@@ -59,6 +59,12 @@
                   </tr>
                 </tbody>
             </table>
+            <ngb-pagination #pg
+            (pageChange)="pageChange(pg.page)"
+            [(page)]="findIncomeExpenses.page"
+            [pageSize]="findIncomeExpenses.pageSize"
+            [collectionSize]="totalLength"  
+          ></ngb-pagination>
         </div>
     </div>
 </div>

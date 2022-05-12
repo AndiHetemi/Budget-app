@@ -6,6 +6,6 @@ export class FindUser {
     constructor() {
         this.username = '';
         this.page = 1;
-        this.pageSize = 10;
+        this.pageSize = 5;
     }
 }

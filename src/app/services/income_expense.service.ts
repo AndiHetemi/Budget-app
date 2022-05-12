@@ -103,4 +103,13 @@ export class IncomeExpenseService implements IIncomeExpenseAPIService {
         }
         return 0;
     }
+
+    count(): number {
+        const incStr = this.localStorage.getItem(this.incomeExpenseKey);
+        const incArray: IncomeExpense[] = JSON.parse(incStr);
+        if (!incArray) {
+            return 0;
+        }
+        return incArray.length;
+    }
 }

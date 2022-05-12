@@ -110,4 +110,13 @@ export class UserService implements IUserAPIService {
         }
         return 0;
     }
+
+    count(): number {
+        const usStr = this.localStorage.getItem(this.userKey);
+        const usArray: User[] = JSON.parse(usStr);
+        if (!usArray) {
+            return 0;
+        }
+        return usArray.length;
+    }
 }

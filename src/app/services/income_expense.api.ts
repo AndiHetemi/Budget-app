@@ -7,4 +7,5 @@ export interface IIncomeExpenseAPIService {
     findbyId(reqId: number): IncomeExpense;
     update(req: IncomeExpense): number;
     remove(reqId: number): number;
+    count(): number;
 }
