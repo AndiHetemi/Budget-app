@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Find } from "../models/find";
 import { FindIncomeExpense } from "../models/find_income_expense";
 import { IncomeExpense } from "../models/income_expense";
 import { IIncomeExpenseAPIService } from "./income_expense.api";
@@ -41,19 +42,26 @@ export class IncomeExpenseService implements IIncomeExpenseAPIService {
         if (!incArray) {
             return response;
         }
+        let incExpTypeArr = [];
+        if (req.type) {
+            for (let incExp of incArray) {
+                if (req.type == incExp.type) {
+                    incExpTypeArr.push(incExp);
+                }
+            }
+        }
         // handle pagination
         let limit = req.pageSize;
         let offset = (req.page - 1) * limit;
+        console.log('limit', limit, 'offset', offset)
         for (let i = offset; i < limit+offset; i++) {
-            if (incArray.length > i) {
-                if (req.type) {
-                    if (req.type == incArray[i].type) {
-                        response.push(incArray[i]);
-                    }
-                }
-                if (!req.type) {
+            if (incExpTypeArr.length > i) {
+                response.push(incExpTypeArr[i]);
+            }
+            if (!req.type) {
+                if (incArray.length > i) {
                     response.push(incArray[i]);
-                }  
+                }
             }
         }
         return response;
@@ -104,11 +112,20 @@ export class IncomeExpenseService implements IIncomeExpenseAPIService {
         return 0;
     }
 
-    count(): number {
+    count(req: FindIncomeExpense): number {
         const incStr = this.localStorage.getItem(this.incomeExpenseKey);
         const incArray: IncomeExpense[] = JSON.parse(incStr);
         if (!incArray) {
             return 0;
+        }
+        let incExpTypeArr = [];
+        if (req.type) {
+            for (let incExp of incArray) {
+                if (req.type == incExp.type) {
+                    incExpTypeArr.push(incExp);
+                }
+            }
+            return incExpTypeArr.length;
         }
         return incArray.length;
     }

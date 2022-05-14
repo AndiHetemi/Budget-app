@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Category } from '../models/category';
+import { Find } from '../models/find';
 import { CategoryService } from '../services/category.service';
 import { UserService } from '../services/user.service';
 
@@ -12,10 +13,15 @@ import { UserService } from '../services/user.service';
 export class CategoryListComponent implements OnInit {
   categories: Category[];
   selectedDeleteCategoriesId: number;
+  findCat: Find;
+  totalLength: number;
+
 
   constructor(private _router: Router, private _categoriesSvc: CategoryService) {
     this.categories = [];
     this.selectedDeleteCategoriesId = 0;
+    this.findCat = new Find();
+    this.totalLength = 0;
   }
 
   ngOnInit(): void {
@@ -23,7 +29,12 @@ export class CategoryListComponent implements OnInit {
   }
 
   loadData() {
-    this.categories = this._categoriesSvc.find();
+    this.categories = this._categoriesSvc.find(this.findCat);
+    this.loadDataCount();
+  }
+
+  loadDataCount() {
+    this.totalLength = this._categoriesSvc.count();
   }
 
   setSelectedCategoryId(catId: number) {
@@ -50,5 +61,10 @@ export class CategoryListComponent implements OnInit {
 
   goToEditPage(catId: number) {
     this._router.navigate([`/categories/edit/${catId}`]);
+  }
+
+  pageChange(page: number) {
+    this.findCat.page = page;
+    this.loadData();
   }
 }

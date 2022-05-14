@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Budget } from '../models/budget';
 import { Category } from '../models/category';
+import { Find } from '../models/find';
 import { IncomeExpense } from '../models/income_expense';
 import { AuthService } from '../services/auth.service';
 import { BudgetService } from '../services/budget.service';
@@ -71,7 +72,9 @@ export class AddEditIncomeExpenseComponent implements OnInit {
         this._router.navigate(['/budget-reports']);
       }
     }
-    this.categories = this._catSvc.find();
+    let findCat = new Find();
+    findCat.pageSize = 1000;
+    this.categories = this._catSvc.find(findCat);
     // Get current budget
     this.currentBudget = this._budgetSvc.find();
     let usr = this._authSvc.userData();

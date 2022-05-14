@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Category } from "../models/category";
+import { Find } from "../models/find";
 import { ICategoryAPIService } from "./category.api";
 
 @Injectable({
@@ -33,10 +34,18 @@ export class CategoryService implements ICategoryAPIService {
         return req.id;
     }   
 
-    find(): Category[] {
+    find(req: Find): Category[] {
+        let response: Category[] = [];
         const ctsStr = this.localStorage.getItem(this.catKey);
         const ctsArray: Category[] = JSON.parse(ctsStr);
-        return ctsArray;
+        let limit = req.pageSize;
+        let offset = (req.page -1) * limit;
+        for (let i = offset; i < limit+offset; i++) {
+            if (ctsArray.length > i){
+                response.push(ctsArray[i]); 
+            }
+        }
+        return response;
     }
 
     findById(reqId: number): Category { 
@@ -84,4 +93,12 @@ export class CategoryService implements ICategoryAPIService {
         return 0;
     }
 
+    count(): number {
+        const cStr = this.localStorage.getItem(this.catKey);
+        const cArray: Category[] = JSON.parse(cStr);
+        if (!cArray) {
+            return 0;
+        }
+        return cArray.length;
+    }
 }

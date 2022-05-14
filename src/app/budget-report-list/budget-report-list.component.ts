@@ -36,9 +36,9 @@ export class BudgetReportListComponent implements OnInit {
     this.totalLength = 0;
   }
 
-  loadData(find: FindIncomeExpense) {
+  loadData() {
     this.incomesExpenses = [];
-    let incExps = this._incExpSvc.find(find);
+    let incExps = this._incExpSvc.find(this.findIncomeExpenses);
     for (let incExp of incExps) {
       let catName = this._catSvc.findById(incExp.categoryId).name;
       let inObj = {
@@ -52,7 +52,7 @@ export class BudgetReportListComponent implements OnInit {
   }
 
   loadDataCount() {
-    this.totalLength = this._incExpSvc.count();
+    this.totalLength = this._incExpSvc.count(this.findIncomeExpenses);
   }
 
   userFullName(userId: number): string {
@@ -64,8 +64,7 @@ export class BudgetReportListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let find = new FindIncomeExpense();
-    this.loadData(find);
+    this.loadData();
     this.currentBudget = this._budgetSvc.find();
   }
 
@@ -97,7 +96,7 @@ export class BudgetReportListComponent implements OnInit {
     }
     let resId = this._incExpSvc.remove(this.selectedIncExpIdToDelete);
     if (resId != 0) {
-      this.loadData(this.findIncomeExpenses);
+      this.loadData();
       // update current budget
       this.currentBudget.previousTotal = this.currentBudget.total;
       if (this.selectedIncExpTypeToDelete == 'Income') {
@@ -115,12 +114,13 @@ export class BudgetReportListComponent implements OnInit {
   }
 
   onFilterTypeSelect() { 
+    this.findIncomeExpenses.page = 1;
     this.findIncomeExpenses.type = this.filterTypeValue;
-    this.loadData(this.findIncomeExpenses);
+    this.loadData();
   }
 
   pageChange(page: number) {
     this.findIncomeExpenses.page = page;
-    this.loadData(this.findIncomeExpenses);
+    this.loadData();
   }
 }

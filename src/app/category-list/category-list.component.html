@@ -26,6 +26,12 @@
                   </tr>
                 </tbody>
             </table>
+            <ngb-pagination #pg
+                (pageChange)="pageChange(pg.page)"
+                [(page)]="findCat.page"
+                [pageSize]="findCat.pageSize"
+                [collectionSize]="totalLength"  
+          ></ngb-pagination>
         </div>
         
     </div>

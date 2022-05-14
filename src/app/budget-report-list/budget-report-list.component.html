@@ -5,7 +5,7 @@
         </div>
         <div class="row justify-content-between col-9 py-4">
             <div class="col-6" style="margin-top: 24px; padding-left: 0px; display: inline-flex">
-                <span>Filter:</span>
+                <span style="margin-right: 5px;margin-top: 6px;">Filter:</span>
                 <select style="width: 30%" (change)="onFilterTypeSelect()" class="form-select" [(ngModel)]="filterTypeValue">
                     <option value="">All</option>
                     <option value="Income">Income</option>
@@ -24,8 +24,6 @@
                     name="dp" [(ngModel)]="toDate" ngbDatepicker #dt="ngbDatepicker" (click)="dt.toggle()">
                 </div>
             </div>
-            
-                
              
             </div>
             
@@ -60,10 +58,10 @@
                 </tbody>
             </table>
             <ngb-pagination #pg
-            (pageChange)="pageChange(pg.page)"
-            [(page)]="findIncomeExpenses.page"
-            [pageSize]="findIncomeExpenses.pageSize"
-            [collectionSize]="totalLength"  
+                (pageChange)="pageChange(pg.page)"
+                [(page)]="findIncomeExpenses.page"
+                [pageSize]="findIncomeExpenses.pageSize"
+                [collectionSize]="totalLength"  
           ></ngb-pagination>
         </div>
     </div>
